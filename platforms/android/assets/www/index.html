@@ -1,0 +1,558 @@
+<html><head>
+	<style type="text/css">
+		@font-face {
+			font-family: dense;
+			src: url("Fonts/Dense-Regular.otf") format("opentype");
+		}
+
+		html{
+			/*font-family: 'Muli', sans-serif;*/
+			font-family: verdana;
+		}
+		h2 {
+			margin: 0 0 5px 0;
+		}
+		h3 {
+			margin: 0 0 0 20px;
+		}
+		#mainList{
+			display: none;
+		}
+		td {
+    		//border-right: 1px solid #cbcbcb;
+    		padding: 0.5em;
+    		font-weight: bold;
+    		max-width: 100px;
+			overflow: auto;
+		}
+		table {
+		    border-spacing: 0;
+		    border-collapse: collapse;
+		    width: 100%;
+		    font-size: 11px;
+		}
+		th {
+		    border-bottom: 1px solid #cbcbcb; 
+		    padding: 0.5em;
+		    text-align: left;
+		}
+		body {
+		    /*font-family: Verdana;*/
+		    font-size: 11px;
+		    color: #666;
+		    /*background: #f1f1f1;*/
+			margin: 0;
+		}
+		.loadingOverlay{
+    		width: 100%;
+    		height: 100%;
+    		z-index: 900;
+    		float: left;
+    		position: absolute;
+    		background: #4E9DC3;
+			color: white;      
+    		/* opacity: .5; */
+    		line-height: 500px;
+    		text-align: center;
+    		font-weight: bold;
+    		font-size: 20px;
+		}
+
+		/* Menu bar */
+		.menuBar{
+			height: 50px;
+			width: 100%;
+			float: left;
+			position: relative;
+			text-align: center;
+			background: #4E9DC3;
+			color: white;
+			z-index: 10;
+		}
+		.menuButton{
+			float: right;
+    		height: 100%;
+    		width: 50px;
+    		text-align: center;
+    		line-height: 50px;
+		}
+		.menuButton:active{
+			background: lightgray;
+			color: white;
+		}
+		.selectContainer{
+			width: 70%;
+			height: 100%;
+			border-radius: 0;
+			margin: 0 auto;
+			position: relative;
+			text-align: center;
+		}
+		.listSelect{
+			height: inherit;
+			font-size: 22px;
+			line-height: 50px;
+			border: none;
+			background: none;
+			border-radius: 0;
+			-webkit-appearance: none;
+			text-align: center;
+			margin: 0 auto;
+			color: white;
+		}
+
+		/* Side Menus */
+		.ui-dialog{
+			position: absolute;
+			background: white;
+			max-width: 500px;
+			z-index: 11;
+			font-size: 18px;
+		}
+		.dialog-form{
+			height: auto;
+			padding-left: 10px;
+			padding-right: 10px;
+			max-height: 330px !important;
+		}
+		.dialog-form fieldset{
+			border: none;
+
+		}
+		.dialog-form-lbl-contatiner{
+    		width: 20%;
+    		float: left;
+		}
+		.dialog-form-input-contatiner input {
+			width: 100%;
+			border: none;
+			border-bottom: 1px solid lightgray;
+			font-size: 18px;
+			padding: 5px;
+		}
+		.dialog-form-input-images{
+			height: 115px;
+			/*width: 100%;*/
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		.dialog-form-input-contatiner input:focus {
+			-webkit-appearance: none;
+			-webkit-user-select: none;
+			outline: none;
+		}
+		.dialog-form-input-contatiner{
+    		width: 100%;
+    		float: left;
+		}
+
+		.dialog-form-input-image{
+			height: 50px;
+			width: 50px;
+			margin-top: 5px;
+			margin-right: 5px;
+			float: left;
+			/*border: 1px dashed lightgray;*/
+		}
+		.dialog-form-input-images img{
+			width: 100%;
+			max-height: 100%;
+			vertical-align: middle;
+			position: relative;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+		}
+
+		.ui-dialog-titlebar-close{
+			display: none;
+		}
+		.ui-dialog-titlebar{
+			margin: 0;
+			background: #4E9DC3;
+			color: white;
+			padding: 20px;
+			text-align: center;
+		}
+		.dialog-create-button{
+			background: #6DD086 !important;
+			font-size: 18px;
+			color: white !important;
+			width: 50%;
+			height: 40px;
+		}
+		.dialog-cancel-button{
+			background: #FF805E !important;
+			font-size: 18px;
+			color: white !important;
+			width: 50%;
+			height: 40px;
+		}
+
+		.ui-button{
+			margin: 0 auto;
+			-webkit-appearance: none;
+			border: none;
+			background: none;
+			color: #666;
+		}
+		.ui-dialog-buttonpane{
+			margin: 0 auto;
+			text-align: center;
+		}
+		#item_1{
+			display: none;
+		}
+
+		div.listMenu {
+			position: absolute;
+    		width: 200px;
+    		border-bottom: none;
+    		right: -250;
+    		top: 5%;
+    		background: white;
+    		border-collapse: collapse;
+		}
+		div.listMenu-item {
+			width: 100%; height: 50px;
+		    border-bottom: 1px solid lightgray;
+		    border-collapse: collapse;
+		}
+		div.listMenu-item-bottom {
+		    width: 100%; height: 50px;
+		    border-collapse: collapse;
+		}
+		div.listMenu-item-icon {
+		    width: 25%;
+		    height: 100%;
+		    float: left;
+		    text-align: center;
+		    line-height: 4.5;
+		}
+		div.listMenu-item-text {
+		    width: 75%;
+		    height: 100%;
+		    float: right;
+		    text-align: center; line-height: 4.5;
+		}
+		div.listMenu-overlay {
+			display: none;
+   			position: absolute;
+   			width: 100%;
+   			height: 100%;
+   			background: lightgray;
+   			opacity: .5;
+   			left: 0;
+   			top: 0;
+		}
+		.listMenu-item-overlay:active{
+			font: white !important;
+			opacity: .5;
+		}
+		.listMenu-item-overlay {
+    		position: absolute;
+    		background: lightgray;
+    		width: 100%;
+    		height: inherit;
+    		opacity: 0;
+		}
+		.listCard{
+			top: 50;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			float: left;
+		}
+		.ui-widget-overlay{
+		    height: 100%;
+			width: 100%;
+			background: gray;
+			opacity: .5;
+			z-index: 10;
+			position: absolute;
+		}
+		.listCreation-form{
+			height: auto;
+		}
+	</style>
+</head>
+<body>
+	<div class="loadingOverlay">Loading</div>
+	<div id="cameraAccessDialog" class="camera-access-dialog" title="Select Destination:">
+		<div class="button-container">
+			<div id="cameraBtn" class="camera-dialog-btn" onclick="openCamera('camera')">Camera</div>
+			<div id="cameraBtn" class="camera-dialog-btn" onclick="openCamera('gallery')">Gallery</div>
+			<!--<div id="cameraBtn" class="camera-dialog-btn" onclick="openCamera('album')">PhotoGallery</div>-->
+			<div id="cameraBtn" class="camera-dialog-btn" onclick="closeDialog()">Close</div>
+		</div>
+	</div>
+	<div id="addItemDialog" class="dialog-Form" title="Add new item">
+  		<form>
+  			<fieldset>
+  				<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" placeholder="Name">
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="style" id="style" value="" class="text ui-widget-content ui-corner-all" placeholder="Style">
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="review" id="review" value="" class="text ui-widget-content ui-corner-all" placeholder="Review">
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="location" id="location" value="" class="text ui-widget-content ui-corner-all" placeholder="Location" >
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="button" value="+ Images" name="images" id="imageBtn" 
+    						onclick="testAddImage()"
+    						style="
+    							margin: 0 auto;
+    							margin-top: 5px;
+    							-webkit-appearance: none;
+    							color: gray;
+    							background: white; 
+    							border: 1px solid lightgray;
+    							font-size: 18px;
+    							width: 100%;
+            					height: 40px;
+    							-webkit-appearance: none; 
+    							-webkit-user-select: none; 
+    							outline: none;">
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<div class="dialog-form-input-images">
+    						
+    					</div>
+    				</div>
+    			</div>
+  			</fieldset>
+  		</form>
+	</div>
+	<div id="editItemDialog" class="dialog-Form" title="Edit this item">
+  		<form>
+  			<fieldset>
+  				<input type="text" id="editIdInput" style="display:none">
+  				<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="name" id="editNameInput" class="text ui-widget-content ui-	corner-all" placeholder="Name">
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="style" id="editStyleInput" value="" class="text ui-widget-	content ui-corner-all" placeholder="Style">
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="review" id="editReviewInput" value="" class="text ui-	widget-content ui-corner-all" placeholder="Review">
+    				</div>
+    			</div>
+    			<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="location" id="editLocationInput" value="" class="text ui-	widget-content ui-corner-all" placeholder="Location">
+    				</div>
+    			</div>
+  			</fieldset>
+  		</form>
+	</div>
+	<div id="listCreation-form" class="dialog-Form"  title="Add a new List">
+		<form>
+			<fieldset>
+				<div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="name" id="nameListInput" class="text ui-widget-content ui-	corner-all" placeholder="Name">
+    				</div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="description" id="descriptionListInput" class="text ui-widget-content ui-corner-all" placeholder="Description">
+    				</div>
+    				<div class="dialog-form-input-contatiner">
+    					<input type="text" name="tags" id="tagsListInput" class="text ui-widget-content ui-corner-all" placeholder="Tags">
+    				</div>
+    			</div>
+			</fieldset>
+		</form>
+	</div>
+	<div id="listSelectDialog" class="dialog-Form" title="Select a list">
+		<p class="validateTips">Select a list</p>
+		<form>
+			<fieldset>
+				<div id="listSelectContainer"></div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="menuBar">
+		<div id="menuButton" class="menuButton" onclick="openRightMenu()">
+			Menu
+    	</div>
+    	<div id="contentButton" class="menuButton" onclick="openLeftMenu()" style="float: left">
+    		+
+    	</div>
+    	<div id="backButton" class="menuButton" style="float: left; display: none;">
+  			<
+		</div>
+  		<div class="selectContainer">
+ 			<select class="listSelect" id="listSelect">
+    			<option selected disabled value=null>-- Choose a list --</option>
+    		</select>
+    	</div>
+    </div>
+    <div id="menu-overlay" class="menu-overlay"  onclick="closeMenu()"></div>
+    <div id="rightMenu" class="menu rightMenu">
+  		<div class="menu-item right">
+  		  	<div class="menu-item-icon right">Icon</div>
+  			<div class="menu-item-text right">Change List</div>
+  			<div class="menu-item-overlay right" onclick="openListSelect()"></div>
+  		</div>
+  		<div class="menu-item right">
+  		  	<div class="menu-item-icon right">Icon</div>
+  			<div class="menu-item-text right">Quit App</div>
+  			<div class="menu-item-overlay right" onclick="closeApp()"></div>
+  		</div>
+  		<div class="menu-item right">
+  		  	<div class="menu-item-icon right">Icon</div>
+  			<div class="menu-item-text right">Open Test</div>
+  			<div class="menu-item-overlay right" onclick="openTest()"></div>
+  		</div>
+  		<div class="menu-item-bottom right">
+  		  	<div class="menu-item-icon right"></div>
+  			<div class="menu-item-text right">close</div>
+  			<div class="menu-item-overlay right" onclick="closeMenu()"></div>
+  		</div>
+	</div>
+	<div id="leftMenu" class="menu leftMenu">
+    	<div class="menu-title left">
+    		<!--<div class="menu-title-icon right"></div>-->
+    		<div class="menu-title-text left">Add New...</div>
+    	</div>
+  		<div class="menu-item left">
+  		  	<div class="menu-item-icon left">Icon</div>
+  			<div class="menu-item-text left">Location</div>
+  			<div class="menu-item-overlay left" onclick="openAddItemPopup()"></div>
+  		</div>
+  		<div class="menu-item left">
+  		  	<div class="menu-item-icon left">Icon</div>
+  			<div class="menu-item-text left">List</div>
+  			<div class="menu-item-overlay left" onclick="openAddListPopup()"></div>
+  		</div>
+  		<div class="menu-title left">
+    		<!--<div class="menu-title-icon left"></div>-->
+    		<div class="menu-title-text left">Modify...</div>
+    	</div>
+  		<div class="menu-item left">
+  		  	<div class="menu-item-icon left">Icon</div>
+  			<div class="menu-item-text left">List</div>
+  			<div class="menu-item-overlay left" onclick=""></div>
+  		</div>
+  		<div class="menu-title left">
+    		<!--<div class="menu-title-icon left"></div>-->
+    		<div class="menu-title-text left">Delete...</div>
+    	</div>
+    	<div class="menu-item left">
+  		  	<div class="menu-item-icon left">Icon</div>
+  			<div class="menu-item-text left">List</div>
+  			<div class="menu-item-overlay left" onclick=""></div>
+  		</div>
+  		<div class="menu-item-bottom left">
+  		  	<div class="menu-item-icon left"></div>
+  			<div class="menu-item-text left">close</div>
+  			<div class="menu-item-overlay left" onclick="closeMenu()"></div>
+  		</div>
+	</div>
+
+	<div id="listCard" class="listCard">
+		
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="js/store.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/store/datastore.js"></script>
+	<!--<script type="text/javascript" src="js/menu.js"></script>-->
+	<script type="text/javascript" src="js/jquery.raty.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
+
+	<link rel="stylesheet" href="Libs/Menu/menu.css">
+	<script type="text/javascript" src="Libs/Menu/menu.js"></script>
+
+	<link rel="stylesheet" href="Libs/List/list.css">
+	<script type="text/javascript" src="Libs/List/list.js"></script>
+
+	<script type="text/javascript" src="Libs/Cards/cards.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="Libs/Camera/camera.css">
+	<script type="text/javascript" src="Libs/Camera/camera.js"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  
+	<script type="text/javascript">
+
+
+			
+		app.init();
+		
+		$( document ).ready(function(){
+			$('.loadingOverlay').hide();
+			/*$('body').on('click', ' .listCont_imgCont', function(){
+				openCameraDialog();
+			});*/
+		});
+
+		function openTest(){
+			document.location.href = 'test.html';
+		}
+
+		/*
+		document.addEventListener('deviceready', function(){
+			console.log('device is ready');
+			$('body .listCont_imgCont').on('click', function(){
+				openCameraDialog();
+			});
+		}, false);
+		*/
+		/*
+		var app = {
+		    // Application Constructor
+		    initialize: function() {
+		        this.bindEvents();
+		    },
+		    // Bind Event Listeners
+		    //
+		    // Bind any events that are required on startup. Common events are:
+		    // 'load', 'deviceready', 'offline', and 'online'.
+		    bindEvents: function() {
+		        document.addEventListener('deviceready', this.onDeviceReady, false);
+		    },
+		    // deviceready Event Handler
+		    //
+		    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+		    // function, we must explicitly call 'app.receivedEvent(...);'
+		    onDeviceReady: function() {
+		        app.receivedEvent('deviceready');
+		    },
+		    // Update DOM on a Received Event
+		    receivedEvent: function(id) {
+		        var parentElement = document.getElementById(id);
+		        var listeningElement = parentElement.querySelector('.listening');
+		        var receivedElement = parentElement.querySelector('.received');
+		
+		        listeningElement.setAttribute('style', 'display:none;');
+		        receivedElement.setAttribute('style', 'display:block;');
+		
+		        console.log('Received Event: ' + id);
+		    }
+		};
+		*/
+	</script>
+</body></html>

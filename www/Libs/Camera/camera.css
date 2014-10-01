@@ -1,0 +1,48 @@
+.camera-Dialog{
+	border: 1px solid gray;
+	padding: 10px;
+	font-family: verdana;
+	background: white;
+	position: absolute;
+}
+.camera-Dialog .ui-dialog-titlebar-close {
+	display: none;
+}
+.ui-dialog-titlebar{
+	margin-bottom: 10px;
+	height: 40px;
+	display: block;
+}
+.camera-Dialog .ui-dialog-titlebar ui-widget-header{
+	display: block;
+
+}
+.camera-access-dialog{
+	width: 120px;
+	margin: auto;
+	display: none;
+}
+.button-container{
+	width: 120px;
+	margin: auto;
+}
+.camera-dialog-btn{
+	height: 30px;
+	border: 1px solid lightgray;
+	margin-bottom: 10px;
+	text-align: center;
+	line-height: 30px;
+	width: 120px;
+	cursor: pointer;
+}
+.camera-dialog-btn:active{
+	border: 1px solid dodgerblue;
+}
+.ui-widget-overlay {
+	background: lightgray;
+	opacity: .5;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}

@@ -1,0 +1,115 @@
+.menu{
+	position: absolute;
+	width: 120px;
+	border-bottom: none; 
+	top: 50px;
+	background: white;
+	border-collapse: collapse;
+	z-index: 10;
+}
+.menu.right {
+	right: -250;
+}
+.menu.left {
+	left: -250;
+}
+
+.menu-item {
+    width: 100%; height: 50px;
+    border-collapse: collapse;
+}
+.menu-item-bottom {
+    width: 100%; height: 50px;
+    border-collapse: collapse;
+    background: #e74c3c;
+    color: white;
+}
+
+/* Menu Item Icon */
+.menu-item-icon{
+	width: 25%; height: 100%;
+    text-align: center;
+    line-height: 4.5;
+    float: left;
+    display: none;
+}
+.menu-item-icon.left {
+    float: left;
+}
+.menu-item.icon.right {
+    float: right;
+}
+
+/* Menu Item Text */
+.menu-item-text {
+	width: 100%; height: 100%;
+    text-align: center; line-height: 4.5;
+}
+.menu-item-text.left {
+    float: right;
+    text-align: right;
+    padding-right: 12px;
+}
+.menu-item-text.right {
+    float: right;
+    text-align: left;
+    text-indent: 12px;
+}
+
+/* Menu Item Overlay */
+.menu-item-overlay {
+	position: absolute;
+	background: lightgray;
+	width: 100%;
+	height: inherit;
+	opacity: 0;
+}
+.menu-item-overlay:active{
+	font: white !important;
+	opacity: .5;
+}
+
+/* Menu Title */
+.menu-title {
+	width: 100%; height: 25px;
+    border-collapse: collapse;
+    font-weight: bold;
+    background: white;
+    color: #666;
+}
+/* Menu Title Icon */
+.menu-title-icon{
+	width: 25%; height: 100%;
+    text-align: center; line-height: 2.3;
+}
+.menu-title-icon.left{
+	float: left;
+}
+.menu-title-icon.right{
+	float: left;
+}
+
+/* Menu Title Text */ 
+.menu-title-text{
+	width: 75%; height: 100%;
+    text-align: center; line-height: 2.3;
+}
+.menu-title-text.left{
+    float: right;
+}
+.menu-title-text.right{
+    float: right;
+	width: 100%;
+	text-align: left;
+	text-indent: 12px;
+}
+
+.menu-overlay {
+	display: none;
+	position: absolute;
+	width: 100%; height: 100%;
+	background: lightgray;
+	opacity: .5;
+	top: 0; left: 0;
+	z-index: 9;
+}
