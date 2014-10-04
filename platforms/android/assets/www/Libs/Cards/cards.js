@@ -14,6 +14,7 @@ function removeCard(ID){
 
 function slideCard(direction, element, callback){
 	//margin-left: 95%;
+	console.log('cardclick')
 	if (direction == 'left'){
 		element.animate({ left: '-95%'}, 200, callback);
 	}

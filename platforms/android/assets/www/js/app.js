@@ -17,7 +17,7 @@ app.init = function (){
 	initMenus();
 	db = new dataStore();
 	db.initDataStore();
-	populateSel();
+	//populateSel();
 };
 function populateSel(){
 	var lists = db.getAllLists();
@@ -27,7 +27,7 @@ function populateSel(){
 						.attr('value', prop)
 						.text(lists[prop].name));
 	}
-	$('#listSelect').on('change', function(e){
+	$('#listSelect').on('click', function(e){
 		listId = this.value;
 		populateList(listId);
 	});
@@ -35,11 +35,26 @@ function populateSel(){
 function populateSelectPopup(){
 	var lists = db.getAllLists();
 	var container = $('#listSelectContainer');
+		container.html('');
 	for (var prop in lists){
-		container.append($('<div>')
+		container.append($('<div class="listSelect-ListItem">')
 							.attr('value', prop)
-							.html('<div>' + lists[prop].name + '</div><div> ' + lists[prop].description + '</div>'));
+							.val(prop)
+							.html('<div class="listSelect-Name">' + lists[prop].name + '</div><div class="listSelect-Description"> ' + lists[prop].description + '</div>' +
+								'<div class="listSelect-Delete">delete</div>' +
+								'<div class="listSelect-Edit">edit</div>'));
 	}
+	$('.listSelect-ListItem').on('click', function(e){
+		console.log(this);
+		var id = $(this).val();
+		if (id != app.selectedList){
+			var list = db.getList(id)
+			populateList(id);
+		}
+		app.selectedList = {id: id, val: list};
+		$('#selectBtn').html(list.name);
+		$('#listSelectDialog').dialog('close');
+	})
 }
 function populateList(list){
 	$('#listCard div[class="listContainer"]').remove();
@@ -162,9 +177,13 @@ function initListSelectDialog(){
 		position: { my: 'top+20', at: 'top', of: window },
 		modal: true,
 		buttons: {
-			'close': function (){
+			'Cancel': function (){
 				$( this ).dialog( "close" );
 			}
+		},
+		create:function(){
+			//so hacky
+			$('#listSelectDialog').parent().find('span:contains("Cancel")').parent().addClass('dialog-cancel-button');
 		}
 	});
 }

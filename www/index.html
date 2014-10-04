@@ -42,6 +42,8 @@
 		    color: #666;
 		    /*background: #f1f1f1;*/
 			margin: 0;
+			height: 100%;
+			max-height: 100%;
 		}
 		.loadingOverlay{
     		width: 100%;
@@ -88,6 +90,15 @@
 			position: relative;
 			text-align: center;
 		}
+		.selectListBtn{
+			line-height: 50px;
+			height: 100%;
+			 width: 100%;
+		}
+		.selectListBtn:active{
+			background: lightgray;
+			color: white;
+		}
 		.listSelect{
 			height: inherit;
 			font-size: 22px;
@@ -99,6 +110,43 @@
 			text-align: center;
 			margin: 0 auto;
 			color: white;
+			display: none;
+		}
+		.listSelect-ListItem{
+			float: left;
+			width: 100%;
+			border-bottom: 1px solid lightgray;
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+		}
+		.listSelect-Name{
+			float: left;
+			//width: 80%;
+		}
+		.listSelect-Description{
+			float: left;
+			font-size: 12px;
+			margin-left: 20px;
+			margin-top: 5px;
+			//width: 70%;
+		}
+		.listSelect-Delete{
+			float: right;
+    		text-align: right;
+    		font-size: 12px;
+		}
+		.listSelect-Edit{
+			float: right;
+    		text-align: right;
+    		font-size: 12px;
+    		margin-right: 10px;
+		}
+
+		.listSelect:focus {
+			outline: none;
+		}
+		#listSelectDialog{
+			overflow-y: auto;
 		}
 
 		/* Side Menus */
@@ -244,7 +292,7 @@
    			background: lightgray;
    			opacity: .5;
    			left: 0;
-   			top: 0;
+   			top: 50;
 		}
 		.listMenu-item-overlay:active{
 			font: white !important;
@@ -261,7 +309,7 @@
 			top: 50;
 			position: absolute;
 			width: 100%;
-			height: 100%;
+			//height: 100%;
 			float: left;
 		}
 		.ui-widget-overlay{
@@ -384,7 +432,6 @@
 		</form>
 	</div>
 	<div id="listSelectDialog" class="dialog-Form" title="Select a list">
-		<p class="validateTips">Select a list</p>
 		<form>
 			<fieldset>
 				<div id="listSelectContainer"></div>
@@ -402,18 +449,14 @@
   			<
 		</div>
   		<div class="selectContainer">
- 			<select class="listSelect" id="listSelect">
-    			<option selected disabled value=null>-- Choose a list --</option>
-    		</select>
+  			<div id="selectListBtn" class="selectListBtn" onclick="openListSelect()"> Choose a List </div>
+ 			<!--<select class="listSelect" id="listSelect">
+    			<option selected disabled value=null> Choose a list </option>
+    		</select>-->
     	</div>
     </div>
-    <div id="menu-overlay" class="menu-overlay"  onclick="closeMenu()"></div>
+    <div id="menu-overlay" class="menu-overlay" onclick="function(){ console.log('fuck'); closeMenu(); }"></div>
     <div id="rightMenu" class="menu rightMenu">
-  		<div class="menu-item right">
-  		  	<div class="menu-item-icon right">Icon</div>
-  			<div class="menu-item-text right">Change List</div>
-  			<div class="menu-item-overlay right" onclick="openListSelect()"></div>
-  		</div>
   		<div class="menu-item right">
   		  	<div class="menu-item-icon right">Icon</div>
   			<div class="menu-item-text right">Quit App</div>
@@ -444,24 +487,6 @@
   		  	<div class="menu-item-icon left">Icon</div>
   			<div class="menu-item-text left">List</div>
   			<div class="menu-item-overlay left" onclick="openAddListPopup()"></div>
-  		</div>
-  		<div class="menu-title left">
-    		<!--<div class="menu-title-icon left"></div>-->
-    		<div class="menu-title-text left">Modify...</div>
-    	</div>
-  		<div class="menu-item left">
-  		  	<div class="menu-item-icon left">Icon</div>
-  			<div class="menu-item-text left">List</div>
-  			<div class="menu-item-overlay left" onclick=""></div>
-  		</div>
-  		<div class="menu-title left">
-    		<!--<div class="menu-title-icon left"></div>-->
-    		<div class="menu-title-text left">Delete...</div>
-    	</div>
-    	<div class="menu-item left">
-  		  	<div class="menu-item-icon left">Icon</div>
-  			<div class="menu-item-text left">List</div>
-  			<div class="menu-item-overlay left" onclick=""></div>
   		</div>
   		<div class="menu-item-bottom left">
   		  	<div class="menu-item-icon left"></div>
@@ -494,8 +519,8 @@
 	<script type="text/javascript" src="Libs/Camera/camera.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-  
+	<!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+  -->
 	<script type="text/javascript">
 
 

@@ -9,6 +9,7 @@ function initMenus(){
 }
 
 function openLeftMenu(){
+	console.log('leftmenu click');
 	if (overlay.is(':visible')){
 		if (leftMenu.is(':visible')){
 			closeMenu();
@@ -35,6 +36,7 @@ function openLeftMenu(){
 }
 
 function openRightMenu(){
+	console.log('rightmenu click');
 	if (overlay.is(':visible')){
 		if (rightMenu.is(':visible')){
 			closeMenu();
@@ -60,7 +62,6 @@ function openRightMenu(){
 }
 function closeMenu(callback){
 	overlay.hide();
-
 	if (rightMenu.is(':visible')){
 		rightMenu.animate({
 			right: -250
@@ -79,6 +80,8 @@ function closeMenu(callback){
 				callback();
 			}
 		});
+	} else {
+		callback();
 	}
 
 }

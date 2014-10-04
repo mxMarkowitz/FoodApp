@@ -29,7 +29,11 @@ function addItem(item, list, editEvent, viewEvent, deleteEvent){
 		newItem = newItem.replace('{{id}}', 'item_' + item.id);
 		newItem = newItem.replace('{{name}}', item.name);
 		newItem = newItem.replace('{{location}}', item.location);
-		newItem = newItem.replace('{{rating}}', item.rating + ' stars');
+		if (item.rating > 0){
+			newItem = newItem.replace('{{rating}}', item.rating + ' stars');
+		} else {
+			newItem = newItem.replace('{{rating}}', 'Not yet visited ');
+		}
 		newItem = newItem.replace('{{tags}}', item.tags);
 		newItem = newItem.replace('{{maps}}', item.maps);
 		newItem = newItem.replace('{{foursquare}}', item.foursquare);
@@ -54,7 +58,11 @@ function updateItem(item, editEvent, viewEvent, deleteEvent){
 		newItem = newItem.replace('{{id}}', 'item_' + item.id);
 		newItem = newItem.replace('{{name}}', item.name);
 		newItem = newItem.replace('{{location}}', item.location);
-		newItem = newItem.replace('{{rating}}', item.rating + ' stars');
+		if (item.rating > 0){
+			newItem = newItem.replace('{{rating}}', item.rating + ' stars');
+		} else {
+			newItem = newItem.replace('{{rating}}', 'havent been');
+		}
 		newItem = newItem.replace('{{tags}}', item.tags);
 		newItem = newItem.replace('{{maps}}', item.maps);
 		newItem = newItem.replace('{{foursquare}}', item.foursquare);
@@ -82,12 +90,13 @@ function initItemEvents(listItem, editEvent, viewEvent, deleteEvent){
 }
 
 function initListCollapse(listItem){
-	//console.log(listItem);
+	console.log(listItem);
 	var top = listItem.find('.listCont_topRow');
 	var mid = listItem.find('.listCont_midRow');
 	var img = listItem.find('.listCont_imgCont');
 	var bot = listItem.find('.listCont_botRow');
 	top.on('click', function() {
+		console.log('click');
 		//add function to track when the animation is active
 		if (listItem.height() == 59){
 			listItem.animate({
